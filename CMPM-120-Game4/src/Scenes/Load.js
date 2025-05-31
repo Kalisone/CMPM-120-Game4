@@ -8,6 +8,12 @@ class Load extends Phaser.Scene {
 
         this.load.setPath("./assets/");
 
+        /*
+        Load MainMenu Assets
+        */
+        this.load.image("background", "tralaleo.jpg");
+        this.load.audio("menu music", "myFreedom.mp3");
+
         /* **** **** **** **** **** ****
          * LOAD TILES
          **** **** **** **** **** **** */
@@ -184,7 +190,7 @@ class Load extends Phaser.Scene {
         ]
         /* CREATE SFX */
 
-        this.scene.start("bitryside");
+        this.scene.start("mainMenuScene");
     }
 
     update() {
