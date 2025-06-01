@@ -14,10 +14,6 @@ class Bitryside extends Phaser.Scene {
         this.SCALE = SCALE;
         this.physics.world.TILE_BIAS = 36;
 
-        this.MAP_WIDTH = 2700;
-        this.MAP_HEIGHT = 540;
-        this.physics.world.setBounds(0, 0, this.MAP_WIDTH, this.MAP_HEIGHT);
-
         this.DEFAULT_LIVES = 3;
         this.wasInAir = this.inAir = false;
         this.numKeys = 0;
@@ -64,11 +60,7 @@ class Bitryside extends Phaser.Scene {
         this.layerGround_1.setCollisionByProperty({
             collides: true
         });
-/*
-        this.layerEnvrBack_4.setCollisionByProperty({
-            collides: true
-        });
-*/
+        
         // Object Layer
         this.keys = this.map.createFromObjects("Objects-5", {
             name: "key",
@@ -108,6 +100,8 @@ class Bitryside extends Phaser.Scene {
         /* **** **** **** **** **** ****
          * COLLISION
          **** **** **** **** **** **** */
+        this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+        
         let hazCollider = (obj1, obj2) => {
             if(obj2.properties.hazard){
                 if(obj1.lives > 0){
