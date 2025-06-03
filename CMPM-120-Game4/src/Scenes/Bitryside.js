@@ -2,6 +2,7 @@ class Bitryside extends Phaser.Scene {
     constructor() {
         super("bitryside");
     }
+    // example to delete
 
     init() {
         // variables and settings
