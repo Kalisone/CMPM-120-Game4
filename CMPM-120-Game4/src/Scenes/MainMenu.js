@@ -9,6 +9,7 @@ class MainMenu extends Phaser.Scene {
         if(!this.audio_playing) {
             this.audio_playing = true;
             this.sound.play("menu music", {
+                loop: true,
                 volume: 0.1
         });
         }
