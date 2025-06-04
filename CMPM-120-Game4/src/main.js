@@ -34,11 +34,12 @@ let config = {
     },
     width: 1440,
     height: 720,
-    scene: [Load, MainMenu, Bitryside, GameFail, GameEnd]
+    scene: [Load, MainMenu, LevelSelector, Credits, Bitryside, GameFail, GameEnd]
 }
 
 var cursors;
 const SCALE = 3.0;
 var my = {sprite: {}, text: {}, vfx: {}, sfx: {}};
+var levelComplete = [];
 
 const game = new Phaser.Game(config);

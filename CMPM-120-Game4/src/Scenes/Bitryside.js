@@ -408,6 +408,7 @@ class Bitryside extends Phaser.Scene {
 
             if (beforePt && afterPt && abovePt && belowPt){
                 this.scene.start("gameEnd");
+                levelComplete[0] = 1; // For level selector
             }
         }
 

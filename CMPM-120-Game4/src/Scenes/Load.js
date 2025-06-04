@@ -9,9 +9,10 @@ class Load extends Phaser.Scene {
         this.load.setPath("./assets/");
 
         /*
-        Load MainMenu Assets
+        Load MainMenu/Level Selector Assets
         */
-        this.load.image("background", "tralaleo.jpg");
+        this.load.image("menuBackground", "tralaleo.jpg");
+        this.load.image("levelSelectorBackground", "cocodrilo.png")
         this.load.audio("menu music", "myFreedom.mp3");
 
         /* **** **** **** **** **** ****
