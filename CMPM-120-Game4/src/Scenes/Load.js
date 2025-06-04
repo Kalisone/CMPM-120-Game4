@@ -11,10 +11,6 @@ class Load extends Phaser.Scene {
         /* **** **** **** **** **** ****
          * LOAD MAIN MENU ASSETS
          **** **** **** **** **** **** */
-        this.load.image("background", "tralaleo.jpg");
-        /*
-        Load MainMenu/Level Selector Assets
-        */
         this.load.image("menuBackground", "tralaleo.jpg");
         this.load.image("levelSelectorBackground", "cocodrilo.png")
         this.load.audio("menu music", "myFreedom.mp3");
@@ -64,8 +60,8 @@ class Load extends Phaser.Scene {
          * LOAD TILES
          **** **** **** **** **** **** */
         // Load character & enemy spritesheets
-        this.load.atlas("abstractPlayers", "spritesheet-abstract_players.png", "spritesheet-abstract_players.xml");
-        this.load.atlas("abstractEnemies", "spritesheet-abstract_enemies.png", "spritesheet-abstract_enemies.xml");
+        this.load.atlasXML("abstractPlayers", "spritesheet-abstract_players.png", "spritesheet-abstract_players.xml");
+        this.load.atlasXML("abstractEnemies", "spritesheet-abstract_enemies.png", "spritesheet-abstract_enemies.xml");
 
         // Load tilemap data
         this.load.image("tilemap_tiles", "tilesheet-abstract.png");
