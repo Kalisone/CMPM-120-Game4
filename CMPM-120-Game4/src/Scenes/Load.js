@@ -114,16 +114,16 @@ class Load extends Phaser.Scene {
     }
 
     create() {
+        /* **** **** **** **** **** ****
+         * CREATE VFX
+         **** **** **** **** **** **** */
+        /* Anims, unassigned */
         /*
          *
          * CREATE TESTING LEVEL
          * !!! WILL BE REMOVED BEFORE JUNE 6 !!!
          * 
         **/
-        /* **** **** **** **** **** ****
-         * CREATE VFX
-         **** **** **** **** **** **** */
-        /* Anims, unassigned */
         this.anims.create({
             key: 'walk',
             frames: this.anims.generateFrameNames("platformer_characters", {
@@ -153,6 +153,11 @@ class Load extends Phaser.Scene {
                 { frame: "tile_0003.png" }
             ],
         });
+        /*
+         *
+         * END CREATE TESTING LEVEL
+         * 
+        **/
 
         my.vfx.keyAnim = this.anims.create({
             key: "keyAnim",
@@ -229,7 +234,7 @@ class Load extends Phaser.Scene {
             this.sound.add("reverbLaser", {volume: 1.0}),
             this.sound.add("blare", {volume: 0.6})
         ]
-        /* CREATE SFX */
+        /* END CREATE SFX */
 
         this.scene.start("mainMenuScene");
     }
