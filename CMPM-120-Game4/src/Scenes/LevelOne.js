@@ -44,7 +44,7 @@ class LevelOne extends Phaser.Scene {
         this.map = this.add.tilemap("level-one", 18, 18, 150, 30);
 
         // Tilesets
-        this.tileset = this.map.addTilesetImage("pixPlatform_tiles", "base_tilemap_tiles");
+        this.tileset = this.map.addTilesetImage("abstract_tiles", "base_tilemap_tiles");
 
         // Tile Layers
         this.layerEnvrBack_0 = this.map.createLayer("Environs-Background-0", this.tileset, 0, 0);
