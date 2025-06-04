@@ -10,7 +10,7 @@
 // Audio assets from Kenny Assets
 //
 // Music
-// "X" by X: 
+// "Treasure Hunter" by Ross Bugden: https://www.youtube.com/@RossBugden
 
 // debug with extreme prejudice
 "use strict"
