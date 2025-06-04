@@ -17,7 +17,8 @@ class Load extends Phaser.Scene {
 
         /*
          *
-         * LOAD TESTING
+         * LOAD TESTING LEVEL BITRYSIDE
+         * !!! WILL BE REMOVED JUNE 6 !!!
          *
         **/
 
@@ -50,7 +51,7 @@ class Load extends Phaser.Scene {
         
         /*
          *
-         * END LOAD TESTING
+         * END LOAD TESTING LEVEL
          * 
         **/
 
