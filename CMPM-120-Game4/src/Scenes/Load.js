@@ -8,11 +8,19 @@ class Load extends Phaser.Scene {
 
         this.load.setPath("./assets/");
 
-        /*
-        Load MainMenu Assets
-        */
+        /* **** **** **** **** **** ****
+         * LOAD MAIN MENU ASSETS
+         **** **** **** **** **** **** */
         this.load.image("background", "tralaleo.jpg");
         this.load.audio("menu music", "myFreedom.mp3");
+        /* END LOAD MAIN MENU ASSETS */
+
+        /*
+         *
+         * LOAD TESTING LEVEL BITRYSIDE
+         * !!! WILL BE REMOVED JUNE 6 !!!
+         *
+        **/
 
         /* **** **** **** **** **** ****
          * LOAD TILES
@@ -39,6 +47,31 @@ class Load extends Phaser.Scene {
 
         // Load background tilemap
         this.load.image("green_background", "gearbit-level-2-background.png");
+        /* END LOAD TILES *
+        
+        /*
+         *
+         * END LOAD TESTING LEVEL
+         * 
+        **/
+
+        /* **** **** **** **** **** ****
+         * LOAD TILES
+         **** **** **** **** **** **** */
+        // Load character & enemy spritesheets
+        this.load.atlas("abstractPlayers", "spritesheet-abstract_players.png", "spritesheet-abstract_players.xml");
+        this.load.atlas("abstractEnemies", "spritesheet-abstract_enemies.png", "spritesheet-abstract_enemies.xml");
+
+        // Load tilemap data
+        this.load.image("tilemap_tiles", "tilesheet-abstract.png");
+        this.load.tilemapTiledJSON("level-one", "level-1.tmj");
+
+        // Load the tilemap as a spritesheet
+        this.load.spritesheet("tilemap_tiles", "tilesheet-abstract.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+        // Load background tilemap
         /* END LOAD TILES */
 
         /* **** **** **** **** **** ****
