@@ -62,10 +62,10 @@ class LevelOne extends Phaser.Scene {
         });
         
         // Object Layer
-        this.keys = this.map.createFromObjects("Objects-5", {
+        this.keys = this.map.createFromObjects("Objects-3", {
             name: "key",
-            key: "base_tilemap_sheet",
-            frame: 27
+            //key: "base_tilemap_sheet",
+            //frame: 27
         });
 
         this.physics.world.enable(this.keys, Phaser.Physics.Arcade.STATIC_BODY);
@@ -80,6 +80,17 @@ class LevelOne extends Phaser.Scene {
             return tile.properties.water == true;
         });
         /* END CREATE TILES */
+
+        //
+
+
+
+        // CODE CHECKPOINT
+
+
+
+        //
+
 
         /* **** **** **** **** **** ****
          * PLAYER SETUP
