@@ -18,7 +18,7 @@ class Load extends Phaser.Scene {
         /*
          *
          * LOAD TESTING LEVEL BITRYSIDE
-         * !!! WILL BE REMOVED JUNE 6 !!!
+         * !!! WILL BE REMOVED BEFORE JUNE 6 !!!
          *
         **/
 
@@ -59,8 +59,8 @@ class Load extends Phaser.Scene {
          * LOAD TILES
          **** **** **** **** **** **** */
         // Load character & enemy spritesheets
-        this.load.atlas("abstractPlayers", "spritesheet-abstract_players.png", "spritesheet-abstract_players.xml");
-        this.load.atlas("abstractEnemies", "spritesheet-abstract_enemies.png", "spritesheet-abstract_enemies.xml");
+        this.load.atlasXML("abstractPlayers", "spritesheet-abstract_players.png", "spritesheet-abstract_players.xml");
+        this.load.atlasXML("abstractEnemies", "spritesheet-abstract_enemies.png", "spritesheet-abstract_enemies.xml");
 
         // Load tilemap data
         this.load.image("tilemap_tiles", "tilesheet-abstract.png");
@@ -114,6 +114,12 @@ class Load extends Phaser.Scene {
     }
 
     create() {
+        /*
+         *
+         * CREATE TESTING LEVEL
+         * !!! WILL BE REMOVED BEFORE JUNE 6 !!!
+         * 
+        **/
         /* **** **** **** **** **** ****
          * CREATE VFX
          **** **** **** **** **** **** */
@@ -149,18 +155,18 @@ class Load extends Phaser.Scene {
         });
 
         my.vfx.keyAnim = this.anims.create({
-                key: "keyAnim",
-                frames: [
-                    {key: "kenny-particles", frame: "flare_01.png"},
-                    {key: "kenny-particles", frame: "light_01.png"},
-                    {key: "kenny-particles", frame: "light_02.png"},
-                    {key: "kenny-particles", frame: "light_03.png"}
-                ],
-                duration: 300,
-                frameRate: 10
-            });
+            key: "keyAnim",
+            frames: [
+                {key: "kenny-particles", frame: "flare_01.png"},
+                {key: "kenny-particles", frame: "light_01.png"},
+                {key: "kenny-particles", frame: "light_02.png"},
+                {key: "kenny-particles", frame: "light_03.png"}
+            ],
+            duration: 300,
+            frameRate: 10
+        });
 
-             my.vfx.bubblingAnim = this.anims.create({
+        my.vfx.bubblingAnim = this.anims.create({
             key: "bubblingAnim",
             frames: [
                 {key: "kenny-particles", frame: "smoke_04.png"},
