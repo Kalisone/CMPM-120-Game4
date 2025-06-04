@@ -8,18 +8,24 @@ class Load extends Phaser.Scene {
 
         this.load.setPath("./assets/");
 
-        /*
-        Load MainMenu Assets
-        */
+        /* **** **** **** **** **** ****
+         * LOAD MAIN MENU ASSETS
+         **** **** **** **** **** **** */
         this.load.image("background", "tralaleo.jpg");
         this.load.audio("menu music", "myFreedom.mp3");
+        /* END LOAD MAIN MENU ASSETS */
+
+        /*
+         *
+         * LOAD TESTING
+         *
+        **/
 
         /* **** **** **** **** **** ****
          * LOAD TILES
          **** **** **** **** **** **** */
         // Load characters spritesheet
         this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
-        this.load.atlas("abstractPlayers", "spritesheet-abstract_players.png", "spritesheet")
 
         // Load tilemap information
         this.load.image("base_tilemap_tiles", "pixPlatform_tilemap_packed.png");
@@ -40,6 +46,31 @@ class Load extends Phaser.Scene {
 
         // Load background tilemap
         this.load.image("green_background", "gearbit-level-2-background.png");
+        /* END LOAD TILES *
+        
+        /*
+         *
+         * END LOAD TESTING
+         * 
+        **/
+
+        /* **** **** **** **** **** ****
+         * LOAD TILES
+         **** **** **** **** **** **** */
+        // Load character & enemy spritesheets
+        this.load.atlas("abstractPlayers", "spritesheet-abstract_players.png", "spritesheet-abstract_players.xml");
+        this.load.atlas("abstractEnemies", "spritesheet-abstract_enemies.png", "spritesheet-abstract_enemies.xml");
+
+        // Load tilemap data
+        this.load.image("tilemap_tiles", "tilesheet-abstract.png");
+        this.load.tilemapTiledJSON("levelOne", "level-1.tmj");
+
+        // Load the tilemap as a spritesheet
+        this.load.spritesheet("tilemap_tiles", "tilesheet-abstract.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+        // Load background tilemap
         /* END LOAD TILES */
 
         /* **** **** **** **** **** ****
