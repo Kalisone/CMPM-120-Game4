@@ -44,7 +44,7 @@ class LevelOne extends Phaser.Scene {
         this.map = this.add.tilemap("level-one", 18, 18, 150, 30);
 
         // Tilesets
-        this.tileset = this.map.addTilesetImage("abstract_tiles", "base_tilemap_tiles");
+        this.tileset = this.map.addTilesetImage("abstract_tiles", "tilemap_tiles");
 
         // Tile Layers
         this.layerEnvrBack_0 = this.map.createLayer("Environs-Background-0", this.tileset, 0, 0);
@@ -64,8 +64,8 @@ class LevelOne extends Phaser.Scene {
         // Object Layer
         this.keys = this.map.createFromObjects("Objects-3", {
             name: "key",
-            //key: "base_tilemap_sheet",
-            //frame: 27
+            key: "tilemap_sheet",
+            frame: 101
         });
 
         this.physics.world.enable(this.keys, Phaser.Physics.Arcade.STATIC_BODY);
@@ -81,25 +81,14 @@ class LevelOne extends Phaser.Scene {
         });
         /* END CREATE TILES */
 
-        //
-
-
-
-        // CODE CHECKPOINT
-
-
-
-        //
-
-
         /* **** **** **** **** **** ****
          * PLAYER SETUP
          **** **** **** **** **** **** */
-        this.spawnPt = this.map.findObject("Objects-5", obj => obj.name === "spawn");
-        my.sprite.player = this.physics.add.sprite(this.spawnPt.x, this.spawnPt.y, "platformer_characters", "tile_0002.png");
+        this.spawnPt = this.map.findObject("Objects-3", obj => obj.name === "spawn");
+        //my.sprite.player = this.physics.add.sprite(this.spawnPt.x, this.spawnPt.y, "platformer_characters", "tile_0002.png");
 
         my.sprite.player.setCollideWorldBounds(true, 1);
-        my.sprite.player.setScale(0.7);
+        //my.sprite.player.setScale(0.7);
         my.sprite.player.body.maxVelocity.x = this.MAX_SPEED;
 
         my.sprite.player.lives = this.DEFAULT_LIVES;
