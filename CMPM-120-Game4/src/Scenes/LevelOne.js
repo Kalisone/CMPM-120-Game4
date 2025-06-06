@@ -138,7 +138,13 @@ class LevelOne extends Phaser.Scene {
         this.physics.add.overlap(my.sprite.player, this.keyGroup, (obj1, obj2) => {
             this.collectObj(obj1, obj2);
         });
+ // Pause Menu
+    
+         this.input.keyboard.on('keydown-P', () => {
+    this.scene.pause();
+this.scene.launch('PauseMenu', { from: this.scene.key });
 
+});
         /* END COLLISION */
     }
 
