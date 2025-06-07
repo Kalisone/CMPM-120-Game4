@@ -216,7 +216,7 @@ class LevelOne extends Phaser.Scene {
                 anim: ["waterAnim"],
                 frequency: my.vfx.waterAnim.msPerFrame,
                 lifespan: my.vfx.waterAnim.duration,
-                scale: () => 0.04 * (1 + (Math.random() ** 2)),
+                scale: () => 0.2 * (1 + (Math.random() ** 2)),
                 alpha: {start: 0.1, end: 0.02, ease: "sine.out"},
                 speed: {min: 0, max: 100},
                 gravityY: -200,
