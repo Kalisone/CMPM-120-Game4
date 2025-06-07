@@ -232,12 +232,11 @@ class Bitryside extends Phaser.Scene {
 
         // Pause Menu
     
- /*        this.input.keyboard.on('keydown-P', () => {
+        this.input.keyboard.on('keydown-P', () => {
     this.scene.pause();
 this.scene.launch('PauseMenu', { from: this.scene.key });
 
 });
-*/
         /* END CREATE VFX */
 
         /* **** **** **** **** **** ****
