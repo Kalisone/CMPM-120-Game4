@@ -18,7 +18,7 @@ class Load extends Phaser.Scene {
         /*
          *
          * LOAD TESTING LEVEL BITRYSIDE
-         * !!! WILL BE REMOVED BEFORE JUNE 6 !!!
+         * !!! WILL BE REMOVED JUNE 8 !!!
          *
         **/
 
@@ -122,7 +122,7 @@ class Load extends Phaser.Scene {
         /*
          *
          * CREATE TESTING LEVEL
-         * !!! WILL BE REMOVED BEFORE JUNE 6 !!!
+         * !!! WILL BE REMOVED JUNE 8 !!!
          * 
         **/
         this.anims.create({
