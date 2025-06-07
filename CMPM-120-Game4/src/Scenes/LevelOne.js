@@ -28,21 +28,19 @@ class LevelOne extends Phaser.Scene {
     create(){
         // //// //// //// //// //// ////
         //
-        // LOGIC
+        // DESIGN
         //
         // //// //// //// //// //// ////
 
+        this.map = this.add.tilemap("level-one", 18, 18, 150, 30);
+
         // BACKGROUND
-        //* WIP
-        this.backgroundImg = this.add.image(0, 0, "green_background");
-        this.background = this.add.tileSprite(0, 600, 1440, 396, "green_background").setScale(6).setScrollFactor(0.4);
-        //*/
+        this.backgroundImg = this.add.image(-1000, -1000, "star_background");
+        this.background = this.add.tileSprite(0, 0, this.map.widthInPixels, this.map.heightInPixels, "star_background").setScale(1).setScrollFactor(0.2);
 
         /* **** **** **** **** **** ****
          * CREATE TILES
          **** **** **** **** **** **** */
-        this.map = this.add.tilemap("level-one", 18, 18, 150, 30);
-
         // Tilesets
         this.tileset = this.map.addTilesetImage("platformAbstract_tiles", "tilemap_tiles");
 
@@ -127,13 +125,6 @@ class LevelOne extends Phaser.Scene {
         this.physics.add.overlap(my.sprite.player, this.keyGroup, (obj1, obj2) => {
             this.collectObj(obj1, obj2);
         });
- // Pause Menu
-    
-         this.input.keyboard.on('keydown-P', () => {
-    this.scene.pause();
-this.scene.launch('PauseMenu', { from: this.scene.key });
-
-});
         /* END COLLISION */
 
         /* **** **** **** **** **** ****
@@ -271,6 +262,12 @@ this.scene.launch('PauseMenu', { from: this.scene.key });
 
         // ANIMATED TILES PLUGIN
         this.animatedTiles.init(this.map);
+
+        // PAUSE MENU
+        this.input.keyboard.on('keydown-P', () => {
+            this.scene.pause();
+            this.scene.launch('PauseMenu', { from: this.scene.key });
+        });
         
         /* **** **** **** **** **** ****
          * DEBUG

@@ -47,6 +47,7 @@ class Load extends Phaser.Scene {
 
         // Load background tilemap
         this.load.image("green_background", "gearbit-level-2-background.png");
+        this.load.image("star_background", "2D_starfield_1.png");
         /* END LOAD TILES *
         
         /*
