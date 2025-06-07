@@ -127,32 +127,35 @@ class Load extends Phaser.Scene {
         **/
         this.anims.create({
             key: 'walk',
-            frames: this.anims.generateFrameNames("platformer_characters", {
-                prefix: "tile_",
-                start: 2,
-                end: 3,
-                suffix: ".png",
-                zeroPad: 4
-            }),
-            frameRate: 15,
+            defaultTextureKey: "abstract_players",
+            frames: [
+                { frame: "playerRed_walk1.png" },
+                { frame: "playerRed_walk2.png" },
+                { frame: "playerRed_walk3.png" }
+            ],
+            frameRate: 30,
             repeat: -1
         });
 
         this.anims.create({
             key: 'idle',
-            defaultTextureKey: "platformer_characters",
+            defaultTextureKey: "abstract_players",
             frames: [
-                { frame: "tile_0002.png" }
+                { frame: "playerRed_stand.png" }
             ],
             repeat: -1
         });
 
         this.anims.create({
             key: 'jump',
-            defaultTextureKey: "platformer_characters",
+            defaultTextureKey: "abstract_players",
             frames: [
-                { frame: "tile_0003.png" }
+                { frame: "playerRed_up1.png" },
+                { frame: "playerRed_up2.png" },
+                { frame: "playerRed_up3.png" }
             ],
+            frameRate: 30,
+            repeat: -1
         });
         /*
          *
