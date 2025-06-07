@@ -9,8 +9,8 @@ class LevelOne extends Phaser.Scene {
         this.ACCELERATION = 1200;
         this.DRAG = 2400;
         this.physics.world.gravity.y = 1200;
-        this.JUMP_VELOCITY = -600;
-        this.MAX_SPEED = 300;
+        this.JUMP_VELOCITY = -900;
+        this.MAX_SPEED = 400;
         this.PARTICLE_VELOCITY = 50;
         this.SCALE = SCALE;
         this.physics.world.TILE_BIAS = 36;
