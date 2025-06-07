@@ -150,9 +150,7 @@ class Load extends Phaser.Scene {
             key: 'jump',
             defaultTextureKey: "abstract_players",
             frames: [
-                { frame: "playerRed_up1.png" },
-                { frame: "playerRed_up2.png" },
-                { frame: "playerRed_up3.png" }
+                { frame: "playerRed_up1.png" }
             ],
             frameRate: 30,
             repeat: -1
