@@ -18,7 +18,7 @@ class Load extends Phaser.Scene {
         /*
          *
          * LOAD TESTING LEVEL BITRYSIDE
-         * !!! WILL BE REMOVED JUNE 6 !!!
+         * !!! WILL BE REMOVED BEFORE JUNE 6 !!!
          *
         **/
 
@@ -67,7 +67,7 @@ class Load extends Phaser.Scene {
         this.load.tilemapTiledJSON("level-one", "level-1.tmj");
 
         // Load the tilemap as a spritesheet
-        this.load.spritesheet("tilemap_tiles", "tilesheet-abstract.png", {
+        this.load.spritesheet("tilemap_sheet", "tilesheet-abstract.png", {
             frameWidth: 64,
             frameHeight: 64
         });
@@ -108,6 +108,8 @@ class Load extends Phaser.Scene {
         this.load.audio("reverbLaser", "laser3.ogg");
         this.load.audio("blare", "zap2.ogg");
 
+        // Music
+        this.load.audio("TreasureHunter", "TreasureHunter_RossBugden.mp3")
         /* END LOAD SFX */
     }
 
@@ -116,6 +118,12 @@ class Load extends Phaser.Scene {
          * CREATE VFX
          **** **** **** **** **** **** */
         /* Anims, unassigned */
+        /*
+         *
+         * CREATE TESTING LEVEL
+         * !!! WILL BE REMOVED BEFORE JUNE 6 !!!
+         * 
+        **/
         this.anims.create({
             key: 'walk',
             frames: this.anims.generateFrameNames("platformer_characters", {
@@ -145,20 +153,25 @@ class Load extends Phaser.Scene {
                 { frame: "tile_0003.png" }
             ],
         });
+        /*
+         *
+         * END CREATE TESTING LEVEL
+         * 
+        **/
 
         my.vfx.keyAnim = this.anims.create({
-                key: "keyAnim",
-                frames: [
-                    {key: "kenny-particles", frame: "flare_01.png"},
-                    {key: "kenny-particles", frame: "light_01.png"},
-                    {key: "kenny-particles", frame: "light_02.png"},
-                    {key: "kenny-particles", frame: "light_03.png"}
-                ],
-                duration: 300,
-                frameRate: 10
-            });
+            key: "keyAnim",
+            frames: [
+                {key: "kenny-particles", frame: "flare_01.png"},
+                {key: "kenny-particles", frame: "light_01.png"},
+                {key: "kenny-particles", frame: "light_02.png"},
+                {key: "kenny-particles", frame: "light_03.png"}
+            ],
+            duration: 300,
+            frameRate: 10
+        });
 
-             my.vfx.bubblingAnim = this.anims.create({
+        my.vfx.bubblingAnim = this.anims.create({
             key: "bubblingAnim",
             frames: [
                 {key: "kenny-particles", frame: "smoke_04.png"},
@@ -221,7 +234,7 @@ class Load extends Phaser.Scene {
             this.sound.add("reverbLaser", {volume: 1.0}),
             this.sound.add("blare", {volume: 0.6})
         ]
-        /* CREATE SFX */
+        /* END CREATE SFX */
 
         this.scene.start("mainMenuScene");
     }
