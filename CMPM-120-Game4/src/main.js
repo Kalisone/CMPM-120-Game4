@@ -34,7 +34,7 @@ let config = {
     },
     width: 1440,
     height: 720,
-    scene: [Load, MainMenu, Bitryside, LevelOne, GameFail, GameEnd]
+    scene: [Load, MainMenu, Bitryside, LevelOne, PauseMenu, GameFail, GameEnd]
 }
 
 var cursors;
