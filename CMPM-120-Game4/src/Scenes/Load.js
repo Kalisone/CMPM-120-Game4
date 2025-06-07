@@ -60,8 +60,8 @@ class Load extends Phaser.Scene {
          * LOAD TILES
          **** **** **** **** **** **** */
         // Load character & enemy spritesheets
-        this.load.atlasXML("abstractPlayers", "spritesheet-abstract_players.png", "spritesheet-abstract_players.xml");
-        this.load.atlasXML("abstractEnemies", "spritesheet-abstract_enemies.png", "spritesheet-abstract_enemies.xml");
+        this.load.atlasXML("abstract_players", "spritesheet-abstract_players.png", "spritesheet-abstract_players.xml");
+        this.load.atlasXML("abstract_enemies", "spritesheet-abstract_enemies.png", "spritesheet-abstract_enemies.xml");
 
         // Load tilemap data
         this.load.image("tilemap_tiles", "tilesheet-abstract.png");
