@@ -6,11 +6,11 @@ class LevelOne extends Phaser.Scene {
 
     init() {
         // variables and settings
-        this.ACCELERATION = 800;
+        this.ACCELERATION = 1200;
         this.DRAG = 2400;
-        this.physics.world.gravity.y = 1500;
-        this.JUMP_VELOCITY = -500;
-        this.MAX_SPEED = 240;
+        this.physics.world.gravity.y = 1200;
+        this.JUMP_VELOCITY = -600;
+        this.MAX_SPEED = 300;
         this.PARTICLE_VELOCITY = 50;
         this.SCALE = SCALE;
         this.physics.world.TILE_BIAS = 36;
@@ -28,21 +28,19 @@ class LevelOne extends Phaser.Scene {
     create(){
         // //// //// //// //// //// ////
         //
-        // LOGIC
+        // DESIGN
         //
         // //// //// //// //// //// ////
 
+        this.map = this.add.tilemap("level-one", 18, 18, 150, 30);
+
         // BACKGROUND
-        //* WIP
-        this.backgroundImg = this.add.image(0, 0, "green_background");
-        this.background = this.add.tileSprite(0, 600, 1440, 396, "green_background").setScale(6).setScrollFactor(0.4);
-        //*/
+        this.backgroundImg = this.add.image(-1000, -1000, "star_background");
+        this.background = this.add.tileSprite(0, 0, this.map.widthInPixels, this.map.heightInPixels, "star_background").setScale(1).setScrollFactor(0.2);
 
         /* **** **** **** **** **** ****
          * CREATE TILES
          **** **** **** **** **** **** */
-        this.map = this.add.tilemap("level-one", 18, 18, 150, 30);
-
         // Tilesets
         this.tileset = this.map.addTilesetImage("platformAbstract_tiles", "tilemap_tiles");
 
@@ -88,7 +86,7 @@ class LevelOne extends Phaser.Scene {
         my.sprite.player = this.physics.add.sprite(this.spawnPt.x, this.spawnPt.y, "platformer_characters", "tile_0002.png");
 
         my.sprite.player.setCollideWorldBounds(true, 1);
-        my.sprite.player.setScale(1);
+        //my.sprite.player.setScale(1);
         my.sprite.player.body.maxVelocity.x = this.MAX_SPEED;
 
         my.sprite.player.lives = this.DEFAULT_LIVES;
@@ -127,13 +125,6 @@ class LevelOne extends Phaser.Scene {
         this.physics.add.overlap(my.sprite.player, this.keyGroup, (obj1, obj2) => {
             this.collectObj(obj1, obj2);
         });
- // Pause Menu
-    
-         this.input.keyboard.on('keydown-P', () => {
-    this.scene.pause();
-this.scene.launch('PauseMenu', { from: this.scene.key });
-
-});
         /* END COLLISION */
 
         /* **** **** **** **** **** ****
@@ -155,16 +146,16 @@ this.scene.launch('PauseMenu', { from: this.scene.key });
         my.text.lives = this.add.text(40, 20, "Lives Remaining: " + my.sprite.player.lives, {
             fontFamily: "'Passion One'",
             fontSize: '16px',
-            color: "#C6E0F3",
-            stroke: "#000000",
+            color: "#ffffff",
+            stroke: "#0086ff",
             strokeThickness: 2
         });
 
         my.text.keys = this.add.text(40, 60, "Keys Remaining: " + this.numKeys, {
             fontFamily: "'Passion One'",
             fontSize: '16px',
-            color: "#C6E0F3",
-            stroke: "#000000",
+            color: "#ffffff",
+            stroke: "#0086ff",
             strokeThickness: 2
         });
         /* END CREATE TEXT */
@@ -271,6 +262,12 @@ this.scene.launch('PauseMenu', { from: this.scene.key });
 
         // ANIMATED TILES PLUGIN
         this.animatedTiles.init(this.map);
+
+        // PAUSE MENU
+        this.input.keyboard.on('keydown-P', () => {
+            this.scene.pause();
+            this.scene.launch('PauseMenu', { from: this.scene.key });
+        });
         
         /* **** **** **** **** **** ****
          * DEBUG
