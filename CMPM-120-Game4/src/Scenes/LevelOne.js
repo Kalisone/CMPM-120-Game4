@@ -6,11 +6,11 @@ class LevelOne extends Phaser.Scene {
 
     init() {
         // variables and settings
-        this.ACCELERATION = 800;
+        this.ACCELERATION = 1200;
         this.DRAG = 2400;
-        this.physics.world.gravity.y = 1500;
-        this.JUMP_VELOCITY = -500;
-        this.MAX_SPEED = 240;
+        this.physics.world.gravity.y = 1200;
+        this.JUMP_VELOCITY = -600;
+        this.MAX_SPEED = 300;
         this.PARTICLE_VELOCITY = 50;
         this.SCALE = SCALE;
         this.physics.world.TILE_BIAS = 36;
@@ -88,7 +88,7 @@ class LevelOne extends Phaser.Scene {
         my.sprite.player = this.physics.add.sprite(this.spawnPt.x, this.spawnPt.y, "platformer_characters", "tile_0002.png");
 
         my.sprite.player.setCollideWorldBounds(true, 1);
-        my.sprite.player.setScale(1);
+        //my.sprite.player.setScale(1);
         my.sprite.player.body.maxVelocity.x = this.MAX_SPEED;
 
         my.sprite.player.lives = this.DEFAULT_LIVES;
@@ -155,16 +155,16 @@ this.scene.launch('PauseMenu', { from: this.scene.key });
         my.text.lives = this.add.text(40, 20, "Lives Remaining: " + my.sprite.player.lives, {
             fontFamily: "'Passion One'",
             fontSize: '16px',
-            color: "#C6E0F3",
-            stroke: "#000000",
+            color: "#ffffff",
+            stroke: "#0086ff",
             strokeThickness: 2
         });
 
         my.text.keys = this.add.text(40, 60, "Keys Remaining: " + this.numKeys, {
             fontFamily: "'Passion One'",
             fontSize: '16px',
-            color: "#C6E0F3",
-            stroke: "#000000",
+            color: "#ffffff",
+            stroke: "#0086ff",
             strokeThickness: 2
         });
         /* END CREATE TEXT */
