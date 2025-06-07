@@ -88,8 +88,10 @@ class LevelOne extends Phaser.Scene {
         my.sprite.player.setCollideWorldBounds(true, 1);
         //my.sprite.player.setScale(1);
         my.sprite.player.body.maxVelocity.x = this.MAX_SPEED;
+        my.sprite.player.body.setOffset(0, my.sprite.player.displayHeight);
 
         my.sprite.player.lives = this.DEFAULT_LIVES;
+        console.log(my.sprite.player);
 
         // Controls
         cursors = this.input.keyboard.createCursorKeys();
@@ -313,7 +315,7 @@ class LevelOne extends Phaser.Scene {
         // [<-] LEFT
          if(cursors.left.isDown && !cursors.right.isDown) {
             my.sprite.player.setAccelerationX(-this.ACCELERATION);
-            my.sprite.player.resetFlip();
+            my.sprite.player.setFlip(true, false);
             my.sprite.player.anims.play('walk', true);
             // TODO: add particle following code here
             my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/4, my.sprite.player.displayHeight/2, false);
@@ -328,7 +330,7 @@ class LevelOne extends Phaser.Scene {
         // [->] RIGHT
         if(cursors.right.isDown && !cursors.left.isDown) {
             my.sprite.player.setAccelerationX(this.ACCELERATION);
-            my.sprite.player.setFlip(true, false);
+            my.sprite.player.resetFlip();
             my.sprite.player.anims.play('walk', true);
             // TODO: add particle following code here
             my.vfx.walking.startFollow(my.sprite.player, -my.sprite.player.displayWidth/4, my.sprite.player.displayHeight/2, false);
