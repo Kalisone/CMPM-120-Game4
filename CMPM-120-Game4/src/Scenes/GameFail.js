@@ -34,7 +34,7 @@ class GameFail extends Phaser.Scene{
         this.cameras.main.shake(360, 0.1);
 
         this.input.keyboard.on('keydown', () => {
-            this.scene.start("bitryside");
+            this.scene.start("mainMenuScene");
         });
     }
 

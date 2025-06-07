@@ -33,6 +33,10 @@ class MainMenu extends Phaser.Scene {
         this.playButton.on("pointerdown", () => {
             this.scene.start("bitryside");
         });
+
+        this.input.keyboard.on('keydown-Q', () => {
+            this.scene.start("levelOne");
+        });
     }
 
 

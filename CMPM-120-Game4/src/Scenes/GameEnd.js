@@ -30,7 +30,7 @@ class GameEnd extends Phaser.Scene{
         my.text.replay.setPosition(game.config.width/2 - my.text.replay.displayWidth/2, game.config.height*4/5 - my.text.replay.displayHeight/2);
 
         this.input.keyboard.on('keydown', () => {
-            this.scene.start("bitryside");
+            this.scene.start("mainMenuScene");
         });
     }
 
