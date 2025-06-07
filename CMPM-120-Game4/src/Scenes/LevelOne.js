@@ -88,7 +88,7 @@ class LevelOne extends Phaser.Scene {
         my.sprite.player.setCollideWorldBounds(true, 1);
         //my.sprite.player.setScale(1);
         my.sprite.player.body.maxVelocity.x = this.MAX_SPEED;
-        my.sprite.player.body.setOffset(0, my.sprite.player.displayHeight);
+        my.sprite.player.body.setOffset(my.sprite.player.displayWidth/3, my.sprite.player.displayHeight);
 
         my.sprite.player.lives = this.DEFAULT_LIVES;
         console.log(my.sprite.player);
