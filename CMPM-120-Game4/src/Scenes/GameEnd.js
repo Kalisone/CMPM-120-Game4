@@ -31,7 +31,6 @@ class GameEnd extends Phaser.Scene{
 
         this.input.keyboard.on('keydown', () => {
             this.scene.start("levelSelectorScene"); // change this later
-            this.scene.start("mainMenuScene");
         });
     }
 
