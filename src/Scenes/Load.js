@@ -134,8 +134,7 @@ class Load extends Phaser.Scene {
                 { frame: "playerRed_walk2.png" },
                 { frame: "playerRed_walk3.png" }
             ],
-            frameRate: 30,
-            repeat: -1
+            frameRate: 30
         });
 
         this.anims.create({
@@ -143,8 +142,7 @@ class Load extends Phaser.Scene {
             defaultTextureKey: "abstract_players",
             frames: [
                 { frame: "playerRed_stand.png" }
-            ],
-            repeat: -1
+            ]
         });
 
         this.anims.create({
@@ -152,9 +150,7 @@ class Load extends Phaser.Scene {
             defaultTextureKey: "abstract_players",
             frames: [
                 { frame: "playerRed_up1.png" }
-            ],
-            frameRate: 30,
-            repeat: -1
+            ]
         });
         /*
          *

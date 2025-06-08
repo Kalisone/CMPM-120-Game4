@@ -91,7 +91,6 @@ class LevelOne extends Phaser.Scene {
         my.sprite.player.body.setOffset(my.sprite.player.displayWidth/3, my.sprite.player.displayHeight);
 
         my.sprite.player.lives = this.DEFAULT_LIVES;
-        console.log(my.sprite.player);
 
         // Controls
         cursors = this.input.keyboard.createCursorKeys();
@@ -295,15 +294,6 @@ class LevelOne extends Phaser.Scene {
         this.input.keyboard.on('keydown-ZERO', () => {
             my.text.keys.setText("Keys Remaining: " + ++this.numKeys);
         });
-
-        /*
-        this.input.keyboard.on('keydown-SPACE', () => {
-            for(let sound of my.sfx.unlock){
-                sound.play();
-            }
-        });
-        */
-        /* END DEBUG */
     }
 
     update(){
@@ -316,12 +306,14 @@ class LevelOne extends Phaser.Scene {
          if(cursors.left.isDown && !cursors.right.isDown) {
             my.sprite.player.setAccelerationX(-this.ACCELERATION);
             my.sprite.player.setFlip(true, false);
-            my.sprite.player.anims.play('walk', true);
-            // TODO: add particle following code here
+            
+            if(my.sprite.player.body.blocked.down){
+                my.sprite.player.anims.play('walk', true);
+            }
+
             my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/4, my.sprite.player.displayHeight/2, false);
             my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
 
-            // Only play smoke effect if touching the ground
             if (my.sprite.player.body.blocked.down) {
                 this.fxPlayerWalk();
             }
@@ -331,12 +323,14 @@ class LevelOne extends Phaser.Scene {
         if(cursors.right.isDown && !cursors.left.isDown) {
             my.sprite.player.setAccelerationX(this.ACCELERATION);
             my.sprite.player.resetFlip();
-            my.sprite.player.anims.play('walk', true);
-            // TODO: add particle following code here
+
+            if(my.sprite.player.body.blocked.down){
+                my.sprite.player.anims.play('walk', true);
+            }
+            
             my.vfx.walking.startFollow(my.sprite.player, -my.sprite.player.displayWidth/4, my.sprite.player.displayHeight/2, false);
             my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
 
-            // Only play smoke effect if touching the ground
             if (my.sprite.player.body.blocked.down) {
                 this.fxPlayerWalk();
             }
@@ -348,15 +342,18 @@ class LevelOne extends Phaser.Scene {
             // Set acceleration to 0 and have DRAG take over
             my.sprite.player.setAccelerationX(0);
             my.sprite.player.setDragX(this.DRAG);
-            my.sprite.player.anims.play('idle');
-            // TODO: have the vfx stop playing
+            
+            if(my.sprite.player.body.blocked.down){
+                my.sprite.player.anims.play('idle');
+            }
+            
             my.vfx.walking.stop();
         }
 
         // [^] IN AIR
         if(!my.sprite.player.body.blocked.down) {
-            my.sprite.player.anims.play('jump');
             my.vfx.walking.stop();
+            my.sprite.player.anims.play('jump');
 
             this.wasInAir = this.inAir;
             this.inAir = true;
