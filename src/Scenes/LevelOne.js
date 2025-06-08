@@ -363,7 +363,8 @@ class LevelOne extends Phaser.Scene {
         }
 
         // [^] LANDING
-        if(my.sprite.player.body.velocity.y < -100){
+        console.log(my.sprite.player.body.velocity.y);
+        if(my.sprite.player.body.velocity.y > 400){
             my.sprite.player.fallForce = true;
         }
 
