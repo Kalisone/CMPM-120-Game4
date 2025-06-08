@@ -35,7 +35,7 @@ class LevelOne extends Phaser.Scene {
 
         // BACKGROUND
         this.backgroundImg = this.add.image(-1000, -1000, "star_background");
-        this.background = this.add.tileSprite(0, 0, this.map.widthInPixels, this.map.heightInPixels, "star_background").setScrollFactor(0.2);
+        this.background = this.add.tileSprite(0, 0, this.map.widthInPixels, this.map.heightInPixels, "star_background").setScrollFactor(0.4).setScale(2.0);
 
         /* **** **** **** **** **** ****
          * CREATE TILES
@@ -57,6 +57,8 @@ class LevelOne extends Phaser.Scene {
         this.layerGround_1.setCollisionByProperty({
             collides: true
         });
+
+        this.layerEnvrBack_0.setScrollFactor(0.8);
         
         // Object Layer
         this.keys = this.map.createFromObjects("Objects-3", {
@@ -85,7 +87,6 @@ class LevelOne extends Phaser.Scene {
         my.sprite.player = this.physics.add.sprite(this.spawnPt.x, this.spawnPt.y, "abstract_players", "playerRed_stand.png");
 
         my.sprite.player.setCollideWorldBounds(true, 1);
-        //my.sprite.player.setScale(1);
         my.sprite.player.body.maxVelocity.x = this.MAX_SPEED;
         my.sprite.player.lives = this.DEFAULT_LIVES;
 
@@ -143,7 +144,7 @@ class LevelOne extends Phaser.Scene {
          **** **** **** **** **** **** */
         my.text.lives = this.add.text(40, 20, "Lives Remaining: " + my.sprite.player.lives, {
             fontFamily: "'Passion One'",
-            fontSize: '16px',
+            fontSize: '24px',
             color: "#ffffff",
             stroke: "#0086ff",
             strokeThickness: 2
@@ -151,7 +152,7 @@ class LevelOne extends Phaser.Scene {
 
         my.text.keys = this.add.text(40, 60, "Keys Remaining: " + this.numKeys, {
             fontFamily: "'Passion One'",
-            fontSize: '16px',
+            fontSize: '24px',
             color: "#ffffff",
             stroke: "#0086ff",
             strokeThickness: 2
