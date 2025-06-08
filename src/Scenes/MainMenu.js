@@ -43,10 +43,6 @@ class MainMenu extends Phaser.Scene {
         this.creditsButton.on("pointerdown", () => {
             this.scene.start("creditsScene");
         });
-
-        this.input.keyboard.on('keydown-Q', () => {
-            this.scene.start("levelOne");
-        });
     }
 
 

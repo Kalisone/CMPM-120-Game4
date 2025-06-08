@@ -18,7 +18,7 @@ class GameFail extends Phaser.Scene{
             strokeThickness: 2
         });
 
-        my.text.replay = this.add.text(0, 0, "[ Press any key to play again ]", {
+        my.text.replay = this.add.text(0, 0, "[ Press any key to return ]", {
             fontFamily: "'Jersey 10'",
             style: "'regular'",
             fontSize: '24px',

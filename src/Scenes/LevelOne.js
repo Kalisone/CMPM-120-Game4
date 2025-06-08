@@ -16,7 +16,6 @@ class LevelOne extends Phaser.Scene {
         this.physics.world.TILE_BIAS = 36;
 
         this.DEFAULT_LIVES = 3;
-        this.wasInAir = this.inAir = false;
         this.numKeys = 0;
         this.stepCounter = 0;
     }
@@ -83,15 +82,12 @@ class LevelOne extends Phaser.Scene {
          * PLAYER SETUP
          **** **** **** **** **** **** */
         this.spawnPt = this.map.findObject("Objects-3", obj => obj.name === "spawn");
-        my.sprite.player = this.physics.add.sprite(this.spawnPt.x, this.spawnPt.y, "platformer_characters", "tile_0002.png");
+        my.sprite.player = this.physics.add.sprite(this.spawnPt.x, this.spawnPt.y, "abstract_players", "playerRed_stand.png");
 
         my.sprite.player.setCollideWorldBounds(true, 1);
         //my.sprite.player.setScale(1);
         my.sprite.player.body.maxVelocity.x = this.MAX_SPEED;
-        my.sprite.player.body.setOffset(my.sprite.player.displayWidth/3, my.sprite.player.displayHeight);
-
         my.sprite.player.lives = this.DEFAULT_LIVES;
-        console.log(my.sprite.player);
 
         // Controls
         cursors = this.input.keyboard.createCursorKeys();
@@ -246,7 +242,8 @@ class LevelOne extends Phaser.Scene {
             this.background,
             this.backgroundImg,
             this.keys,
-            this.waterTiles.animParticles
+            this.waterTiles.animParticles,
+            this.physics.world.debugGraphic
         ]);
         
         for(let k in my.sprite){
@@ -274,6 +271,10 @@ class LevelOne extends Phaser.Scene {
         /* **** **** **** **** **** ****
          * DEBUG
          **** **** **** **** **** **** */
+        this.input.keyboard.on('keydown-D', () => {
+            this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true
+            this.physics.world.debugGraphic.clear()
+        }, this);
         this.physics.world.drawDebug = false;
 
         // Decrement Life
@@ -295,19 +296,11 @@ class LevelOne extends Phaser.Scene {
         this.input.keyboard.on('keydown-ZERO', () => {
             my.text.keys.setText("Keys Remaining: " + ++this.numKeys);
         });
-
-        /*
-        this.input.keyboard.on('keydown-SPACE', () => {
-            for(let sound of my.sfx.unlock){
-                sound.play();
-            }
-        });
-        */
-        /* END DEBUG */
     }
 
     update(){
-    this.stepCounter++;
+        this.stepCounter++;
+
         /* **** **** **** **** **** ****
          * PLAYER MOVEMENT
          **** **** **** **** **** **** */
@@ -317,11 +310,10 @@ class LevelOne extends Phaser.Scene {
             my.sprite.player.setAccelerationX(-this.ACCELERATION);
             my.sprite.player.setFlip(true, false);
             my.sprite.player.anims.play('walk', true);
-            // TODO: add particle following code here
+
             my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/4, my.sprite.player.displayHeight/2, false);
             my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
 
-            // Only play smoke effect if touching the ground
             if (my.sprite.player.body.blocked.down) {
                 this.fxPlayerWalk();
             }
@@ -329,14 +321,13 @@ class LevelOne extends Phaser.Scene {
 
         // [->] RIGHT
         if(cursors.right.isDown && !cursors.left.isDown) {
+
             my.sprite.player.setAccelerationX(this.ACCELERATION);
-            my.sprite.player.resetFlip();
-            my.sprite.player.anims.play('walk', true);
-            // TODO: add particle following code here
+            my.sprite.player.resetFlip();my.sprite.player.anims.play('walk', true);
+            
             my.vfx.walking.startFollow(my.sprite.player, -my.sprite.player.displayWidth/4, my.sprite.player.displayHeight/2, false);
             my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
 
-            // Only play smoke effect if touching the ground
             if (my.sprite.player.body.blocked.down) {
                 this.fxPlayerWalk();
             }
@@ -348,8 +339,11 @@ class LevelOne extends Phaser.Scene {
             // Set acceleration to 0 and have DRAG take over
             my.sprite.player.setAccelerationX(0);
             my.sprite.player.setDragX(this.DRAG);
-            my.sprite.player.anims.play('idle');
-            // TODO: have the vfx stop playing
+            
+            if(my.sprite.player.body.blocked.down){
+                my.sprite.player.anims.play('idle');
+            }
+            
             my.vfx.walking.stop();
         }
 
@@ -357,19 +351,11 @@ class LevelOne extends Phaser.Scene {
         if(!my.sprite.player.body.blocked.down) {
             my.sprite.player.anims.play('jump');
             my.vfx.walking.stop();
-
-            this.wasInAir = this.inAir;
-            this.inAir = true;
-        }else{
-            this.wasInAir = this.inAir;
-            this.inAir = false;
         }
 
         // [^] JUMPING
         if(my.sprite.player.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
-
-            my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight / 2));
 
             for(let sound of my.sfx.jump){
                 sound.play();
@@ -377,14 +363,22 @@ class LevelOne extends Phaser.Scene {
         }
 
         // [^] LANDING
-        if(this.inAir === false && this.wasInAir === true){
-            my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight));
+        if(my.sprite.player.body.velocity.y < -100){
+            my.sprite.player.fallForce = true;
+        }
+
+        if(my.sprite.player.fallForce && my.sprite.player.body.blocked.down){
+            my.sprite.player.fallForce = false;
+
+            my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight/2));
 
             for(let sound of my.sfx.landing){
                 sound.play();
             }
         }
         /* END PLAYER MOVEMENT */
+
+        console.log(my.sprite.player.body.velocity.y);
 
         /* **** **** **** **** **** ****
          * END CONDITIONS
