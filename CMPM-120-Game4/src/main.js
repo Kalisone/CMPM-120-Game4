@@ -10,7 +10,7 @@
 // Audio assets from Kenny Assets
 //
 // Music
-// "X" by X: 
+// "Treasure Hunter" by Ross Bugden: https://www.youtube.com/@RossBugden
 
 // debug with extreme prejudice
 "use strict"
@@ -34,11 +34,11 @@ let config = {
     },
     width: 1440,
     height: 720,
-    scene: [Load, MainMenu, LevelSelector, Credits, Bitryside, GameFail, GameEnd]
+    scene: [Load, MainMenu, Bitryside, LevelOne, PauseMenu, GameFail, GameEnd]
 }
 
 var cursors;
-const SCALE = 3.0;
+const SCALE = 1.0;
 var my = {sprite: {}, text: {}, vfx: {}, sfx: {}};
 var levelComplete = [];
 

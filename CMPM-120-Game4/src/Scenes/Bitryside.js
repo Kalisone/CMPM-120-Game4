@@ -12,7 +12,7 @@ class Bitryside extends Phaser.Scene {
         this.JUMP_VELOCITY = -500;
         this.MAX_SPEED = 240;
         this.PARTICLE_VELOCITY = 50;
-        this.SCALE = SCALE;
+        this.SCALE = 3.0;
         this.physics.world.TILE_BIAS = 36;
 
         this.DEFAULT_LIVES = 3;
@@ -230,6 +230,14 @@ class Bitryside extends Phaser.Scene {
             }));
         }
 
+        // Pause Menu
+    
+ /*        this.input.keyboard.on('keydown-P', () => {
+    this.scene.pause();
+this.scene.launch('PauseMenu', { from: this.scene.key });
+
+});
+*/
         /* END CREATE VFX */
 
         /* **** **** **** **** **** ****
