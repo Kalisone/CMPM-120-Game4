@@ -9,7 +9,7 @@ class Load extends Phaser.Scene {
         this.load.setPath("./assets/");
 
         /* **** **** **** **** **** ****
-         * LOAD MAIN MENU ASSETS
+         * LOAD MAIN MENU/LEVEL SELECTOR ASSETS
          **** **** **** **** **** **** */
         this.load.image("menuBackground", "tralaleo.jpg");
         this.load.image("levelSelectorBackground", "cocodrilo.png")
@@ -68,7 +68,7 @@ class Load extends Phaser.Scene {
         this.load.tilemapTiledJSON("level-one", "level-1.tmj");
 
         // Load the tilemap as a spritesheet
-        this.load.spritesheet("tilemap_tiles", "tilesheet-abstract.png", {
+        this.load.spritesheet("tilemap_sheet", "tilesheet-abstract.png", {
             frameWidth: 64,
             frameHeight: 64
         });
