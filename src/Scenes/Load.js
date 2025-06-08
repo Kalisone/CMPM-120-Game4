@@ -109,9 +109,6 @@ class Load extends Phaser.Scene {
         // Death sound
         this.load.audio("reverbLaser", "laser3.ogg");
         this.load.audio("blare", "zap2.ogg");
-
-        // Music
-        this.load.audio("TreasureHunter", "TreasureHunter_RossBugden.mp3")
         /* END LOAD SFX */
     }
 
