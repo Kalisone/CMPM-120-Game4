@@ -35,7 +35,7 @@ class LevelOne extends Phaser.Scene {
 
         // BACKGROUND
         this.backgroundImg = this.add.image(-1000, -1000, "star_background");
-        this.background = this.add.tileSprite(0, 0, this.map.widthInPixels, this.map.heightInPixels, "star_background").setScale(1).setScrollFactor(0.2);
+        this.background = this.add.tileSprite(0, 0, this.map.widthInPixels, this.map.heightInPixels, "star_background").setScrollFactor(0.2);
 
         /* **** **** **** **** **** ****
          * CREATE TILES
@@ -166,7 +166,7 @@ class LevelOne extends Phaser.Scene {
         /* Particles */
         my.vfx.particleKey = this.add.particles(0, 0, "kenny-particles", {
             anim: "keyAnim",
-            scale: {start: 0.03, end: 0.2},
+            scale: {start: 0.1, end: 0.4},
             frequency: my.vfx.keyAnim.msPerFrame,
             lifespan: my.vfx.keyAnim.duration,
             alpha: {start: 0.4, end: 0.1},
@@ -176,7 +176,7 @@ class LevelOne extends Phaser.Scene {
         my.vfx.walking = this.add.particles(0, 0, "kenny-particles", {
             frame: ["smoke_03.png", "smoke_09.png"],
             random: true,
-            scale: {start: 0.02, end: 0.04},
+            scale: {start: 0.05, end: 0.1},
             maxAliveParticles: 8,
             lifespan: 150,
             gravityY: -400,
@@ -185,7 +185,7 @@ class LevelOne extends Phaser.Scene {
 
         my.vfx.landing = this.add.particles(0, 0, "kenny-particles", {
             anim: "landingAnim",
-            scale: {start: 0.04, end: 0.1},
+            scale: {start: 0.05, end: 0.2},
             frequency: my.vfx.landingAnim.msPerFrame,
             lifespan: my.vfx.landingAnim.duration,
             gravityY: -200
@@ -230,7 +230,6 @@ class LevelOne extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.cameras.main.startFollow(my.sprite.player, true, 0.1, 0.1);
         this.cameras.main.setDeadzone(20, 20);
-        //this.cameras.main.setZoom(SCALE);
         this.cameras.main.setBackgroundColor("#7ff0a5");
 
         for(let k in my.text){
@@ -370,7 +369,7 @@ class LevelOne extends Phaser.Scene {
         if(my.sprite.player.fallForce && my.sprite.player.body.blocked.down){
             my.sprite.player.fallForce = false;
 
-            my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight/2));
+            my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight * 0.8));
 
             for(let sound of my.sfx.landing){
                 sound.play();
