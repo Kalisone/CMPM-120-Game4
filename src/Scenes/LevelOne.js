@@ -378,8 +378,6 @@ class LevelOne extends Phaser.Scene {
         }
         /* END PLAYER MOVEMENT */
 
-        console.log(my.sprite.player.body.velocity.y);
-
         /* **** **** **** **** **** ****
          * END CONDITIONS
          **** **** **** **** **** **** */
