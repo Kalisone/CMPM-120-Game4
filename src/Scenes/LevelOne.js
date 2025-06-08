@@ -16,7 +16,6 @@ class LevelOne extends Phaser.Scene {
         this.physics.world.TILE_BIAS = 36;
 
         this.DEFAULT_LIVES = 3;
-        this.wasInAir = this.inAir = false;
         this.numKeys = 0;
         this.stepCounter = 0;
     }
@@ -300,7 +299,8 @@ class LevelOne extends Phaser.Scene {
     }
 
     update(){
-    this.stepCounter++;
+        this.stepCounter++;
+
         /* **** **** **** **** **** ****
          * PLAYER MOVEMENT
          **** **** **** **** **** **** */
@@ -309,10 +309,7 @@ class LevelOne extends Phaser.Scene {
          if(cursors.left.isDown && !cursors.right.isDown) {
             my.sprite.player.setAccelerationX(-this.ACCELERATION);
             my.sprite.player.setFlip(true, false);
-            
-            if(my.sprite.player.body.blocked.down){
-                my.sprite.player.anims.play('walk', true);
-            }
+            my.sprite.player.anims.play('walk', true);
 
             my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/4, my.sprite.player.displayHeight/2, false);
             my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
@@ -324,12 +321,9 @@ class LevelOne extends Phaser.Scene {
 
         // [->] RIGHT
         if(cursors.right.isDown && !cursors.left.isDown) {
-            my.sprite.player.setAccelerationX(this.ACCELERATION);
-            my.sprite.player.resetFlip();
 
-            if(my.sprite.player.body.blocked.down){
-                my.sprite.player.anims.play('walk', true);
-            }
+            my.sprite.player.setAccelerationX(this.ACCELERATION);
+            my.sprite.player.resetFlip();my.sprite.player.anims.play('walk', true);
             
             my.vfx.walking.startFollow(my.sprite.player, -my.sprite.player.displayWidth/4, my.sprite.player.displayHeight/2, false);
             my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
@@ -355,21 +349,13 @@ class LevelOne extends Phaser.Scene {
 
         // [^] IN AIR
         if(!my.sprite.player.body.blocked.down) {
-            my.vfx.walking.stop();
             my.sprite.player.anims.play('jump');
-
-            this.wasInAir = this.inAir;
-            this.inAir = true;
-        }else{
-            this.wasInAir = this.inAir;
-            this.inAir = false;
+            my.vfx.walking.stop();
         }
 
         // [^] JUMPING
         if(my.sprite.player.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
-
-            //my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight / 2));
 
             for(let sound of my.sfx.jump){
                 sound.play();
@@ -377,14 +363,22 @@ class LevelOne extends Phaser.Scene {
         }
 
         // [^] LANDING
-        if(this.inAir === false && this.wasInAir === true){
-            my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight));
+        if(my.sprite.player.body.velocity.y < -100){
+            my.sprite.player.fallForce = true;
+        }
+
+        if(my.sprite.player.fallForce && my.sprite.player.body.blocked.down){
+            my.sprite.player.fallForce = false;
+
+            my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight/2));
 
             for(let sound of my.sfx.landing){
                 sound.play();
             }
         }
         /* END PLAYER MOVEMENT */
+
+        console.log(my.sprite.player.body.velocity.y);
 
         /* **** **** **** **** **** ****
          * END CONDITIONS
