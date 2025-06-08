@@ -83,13 +83,11 @@ class LevelOne extends Phaser.Scene {
          * PLAYER SETUP
          **** **** **** **** **** **** */
         this.spawnPt = this.map.findObject("Objects-3", obj => obj.name === "spawn");
-        my.sprite.player = this.physics.add.sprite(this.spawnPt.x, this.spawnPt.y, "platformer_characters", "tile_0002.png");
+        my.sprite.player = this.physics.add.sprite(this.spawnPt.x, this.spawnPt.y, "abstract_players", "playerRed_stand.png");
 
         my.sprite.player.setCollideWorldBounds(true, 1);
         //my.sprite.player.setScale(1);
         my.sprite.player.body.maxVelocity.x = this.MAX_SPEED;
-        my.sprite.player.body.setOffset(my.sprite.player.displayWidth/3, my.sprite.player.displayHeight);
-
         my.sprite.player.lives = this.DEFAULT_LIVES;
 
         // Controls
@@ -245,7 +243,8 @@ class LevelOne extends Phaser.Scene {
             this.background,
             this.backgroundImg,
             this.keys,
-            this.waterTiles.animParticles
+            this.waterTiles.animParticles,
+            this.physics.world.debugGraphic
         ]);
         
         for(let k in my.sprite){
@@ -273,6 +272,10 @@ class LevelOne extends Phaser.Scene {
         /* **** **** **** **** **** ****
          * DEBUG
          **** **** **** **** **** **** */
+        this.input.keyboard.on('keydown-D', () => {
+            this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true
+            this.physics.world.debugGraphic.clear()
+        }, this);
         this.physics.world.drawDebug = false;
 
         // Decrement Life
@@ -366,7 +369,7 @@ class LevelOne extends Phaser.Scene {
         if(my.sprite.player.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
 
-            my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight / 2));
+            //my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight / 2));
 
             for(let sound of my.sfx.jump){
                 sound.play();
