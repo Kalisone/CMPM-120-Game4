@@ -409,6 +409,7 @@ class LevelOne extends Phaser.Scene {
             let belowPt = b.y > a.y - (a.displayHeight/2);
 
             if (beforePt && afterPt && abovePt && belowPt){
+                levelComplete[0] = 1;
                 this.scene.start("gameEnd");
             }
         }
