@@ -1,8 +1,7 @@
-class LevelOne extends Phaser.Scene {
+class LevelTwo extends Phaser.Scene {
     constructor() {
-        super("levelOne");
+        super("levelTwo");
     }
-    // example to delete
 
     init() {
         // variables and settings
@@ -16,6 +15,7 @@ class LevelOne extends Phaser.Scene {
         this.physics.world.TILE_BIAS = 36;
 
         this.DEFAULT_LIVES = 3;
+        this.wasInAir = this.inAir = false;
         this.numKeys = 0;
         this.stepCounter = 0;
     }
@@ -24,14 +24,8 @@ class LevelOne extends Phaser.Scene {
         this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
     }
 
-    create(){
-        // //// //// //// //// //// ////
-        //
-        // DESIGN
-        //
-        // //// //// //// //// //// ////
-
-        this.map = this.add.tilemap("level-one", 64, 64, 150, 30);
+    create() {
+        this.map = this.add.tilemap("level-two", 18, 18, 150, 30);
 
         // BACKGROUND
         this.backgroundImg = this.add.image(-1000, -1000, "star_background");
@@ -44,21 +38,17 @@ class LevelOne extends Phaser.Scene {
         this.tileset = this.map.addTilesetImage("platformAbstract_tiles", "tilemap_tiles");
 
         // Tile Layers
-        this.layerEnvrBack_0 = this.map.createLayer("Environs-Background-0", this.tileset, 0, 0);
         this.layerGround_1 = this.map.createLayer("Ground-Platforms-1", this.tileset, 0, 0);
-        this.layerEnvrFore_2 = this.map.createLayer("Environs-Foreground-2", this.tileset, 0, 0);
 
         this.tileLayers = [
-            this.layerEnvrBack_0,
-            this.layerGround_1,
-            this.layerEnvrFore_2
+            this.layerGround_1
         ];
 
         this.layerGround_1.setCollisionByProperty({
             collides: true
         });
 
-        this.layerEnvrBack_0.setScrollFactor(0.8);
+        //this.layerEnvrBack_0.setScrollFactor(0.8);
         
         // Object Layer
         this.keys = this.map.createFromObjects("Objects-3", {

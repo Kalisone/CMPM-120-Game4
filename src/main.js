@@ -1,16 +1,16 @@
-// Ethan Morelos
+// Ethan Morelos, Devin Alvarez, Angelo Franso
 // CMPM 120 - Game Development Experience
-// Game 3 - Platformer
-// May X, 2024
+// Game 4 - Platformer
+// May 7, 2024
 //
-// Gearbit
+// Tralaleo Trip
 //
 // Art assets from Kenny Assets
 //
 // Audio assets from Kenny Assets
 //
 // Music
-// "Treasure Hunter" by Ross Bugden: https://www.youtube.com/@RossBugden
+// "My Freedom" by ROIK
 
 // debug with extreme prejudice
 "use strict"
@@ -34,7 +34,7 @@ let config = {
     },
     width: 1440,
     height: 720,
-    scene: [Load, MainMenu, LevelSelector, Bitryside, LevelOne, PauseMenu, GameFail, GameEnd]
+    scene: [Load, MainMenu, LevelSelector, Credits, Bitryside, LevelOne, LevelTwo, PauseMenu, GameFail, GameEnd]
 }
 
 var cursors;

@@ -30,7 +30,7 @@ class LevelSelector extends Phaser.Scene {
             backgroundColor: '#ff0000'
         }).setOrigin(0.5).setInteractive();
         this.level2.on("pointerdown", () => {
-            this.scene.start("bitryside");
+            this.scene.start("levelTwo");
         });
 
         this.level3 = this.add.text(1200, 360, "Level 3", {
