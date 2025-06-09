@@ -67,6 +67,7 @@ class Load extends Phaser.Scene {
         // Load tilemap data
         this.load.image("tilemap_tiles", "tilesheet-abstract.png");
         this.load.tilemapTiledJSON("level-one", "level-1.tmj");
+        this.load.tilemapTiledJSON("level-two", "level-2.tmj");
 
         // Load the tilemap as a spritesheet
         this.load.spritesheet("tilemap_sheet", "tilesheet-abstract.png", {
