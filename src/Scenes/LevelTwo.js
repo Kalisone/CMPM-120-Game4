@@ -38,23 +38,27 @@ class LevelTwo extends Phaser.Scene {
         this.tileset = this.map.addTilesetImage("platformAbstract_tiles", "tilemap_tiles");
 
         // Tile Layers
+        this.layerEnvrBack_0 = this.map.createLayer("Environs-Background-0", this.tileset, 0, 0);
         this.layerGround_1 = this.map.createLayer("Ground-Platforms-1", this.tileset, 0, 0);
+        this.layerEnvrFore_2 = this.map.createLayer("Environs-Foreground-2", this.tileset, 0, 0);
 
         this.tileLayers = [
-            this.layerGround_1
+            this.layerEnvrBack_0,
+            this.layerGround_1,
+            this.layerEnvrFore_2
         ];
 
         this.layerGround_1.setCollisionByProperty({
             collides: true
         });
 
-        //this.layerEnvrBack_0.setScrollFactor(0.8);
+        this.layerEnvrBack_0.setScrollFactor(0.8);
         
         // Object Layer
         this.keys = this.map.createFromObjects("Objects-3", {
             name: "key",
             key: "tilemap_sheet",
-            frame: 101
+            frame: 79
         });
 
         this.physics.world.enable(this.keys, Phaser.Physics.Arcade.STATIC_BODY);
@@ -85,6 +89,18 @@ class LevelTwo extends Phaser.Scene {
         /* END PLAYER SETUP */
 
         /* **** **** **** **** **** ****
+         * ENEMY SETUP
+         **** **** **** **** **** **** */
+        this.espawnPt = this.map.findObject("Objects-3", obj => obj.name === "espawn");
+        my.sprite.enemy = this.physics.add.sprite(this.espawnPt.x, this.espawnPt.y, "abstract_enemies", "enemyWalking_1.png");
+        my.sprite.enemy.setCollideWorldBounds(true);
+        this.physics.add.collider(my.sprite.enemy, this.layerGround_1);
+        my.sprite.enemy.setVelocityX(100); // Initial speed to the right
+        my.sprite.enemy.direction = 1;     // 1 for right, -1 for left
+        my.sprite.enemy.setBounceX(0);     // No bounce on horizontal collisions
+        /* END ENEMY SETUP */
+
+        /* **** **** **** **** **** ****
          * COLLISION
          **** **** **** **** **** **** */
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -113,6 +129,11 @@ class LevelTwo extends Phaser.Scene {
 
         this.physics.add.overlap(my.sprite.player, this.keyGroup, (obj1, obj2) => {
             this.collectObj(obj1, obj2);
+        });
+
+        // Enemy Collision
+        this.physics.add.overlap(my.sprite.player, my.sprite.enemy, (player, enemy) => {
+            this.respawn(player);
         });
         /* END COLLISION */
 
@@ -292,6 +313,21 @@ class LevelTwo extends Phaser.Scene {
         this.stepCounter++;
 
         /* **** **** **** **** **** ****
+         * ENEMY MOVEMENT
+         **** **** **** **** **** **** */
+        // Enemy movement and flip logic
+        let enemy = my.sprite.enemy;
+        enemy.anims.play('ewalk', true);
+
+        // Check if the enemy hit a wall
+        if (enemy.body.blocked.left || enemy.body.blocked.right) {
+            enemy.direction *= -1; // Reverse direction
+            enemy.setVelocityX(enemy.direction * 100); // Adjust speed
+            enemy.setFlipX(enemy.direction < 0); // Flip sprite
+        }
+
+        /* END PLAYER MOVEMENT */
+        /* **** **** **** **** **** ****
          * PLAYER MOVEMENT
          **** **** **** **** **** **** */
 
@@ -391,6 +427,7 @@ class LevelTwo extends Phaser.Scene {
             let belowPt = b.y > a.y - (a.displayHeight/2);
 
             if (beforePt && afterPt && abovePt && belowPt){
+                levelComplete[1] = 1;
                 this.scene.start("gameEnd");
             }
         }
@@ -451,5 +488,9 @@ class LevelTwo extends Phaser.Scene {
         }
         
         this.cameras.main.shake(270, 0.02);
+    }
+
+    enemyMovement() {
+        my.sprite.player.setAccelerationX(this.ACCELERATION);
     }
 }

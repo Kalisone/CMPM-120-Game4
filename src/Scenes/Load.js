@@ -136,6 +136,18 @@ class Load extends Phaser.Scene {
         });
 
         this.anims.create({
+            key: 'ewalk',
+            defaultTextureKey: "abstract_enemies",
+            frames: [
+                { frame: "enemyWalking_1.png" },
+                { frame: "enemyWalking_2.png" },
+                { frame: "enemyWalking_3.png" },
+                { frame: "enemyWalking_4.png" },
+            ],
+            frameRate: 30
+        });
+
+        this.anims.create({
             key: 'idle',
             defaultTextureKey: "abstract_players",
             frames: [
