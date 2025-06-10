@@ -79,7 +79,7 @@
          "name":"Ground-Platforms-1",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":120,
          "x":0,
          "y":0
@@ -120,7 +120,7 @@
          "name":"Environs-Foreground-2",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":120,
          "x":0,
          "y":0
@@ -139,8 +139,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":234,
-                 "y":1340
+                 "x":225,
+                 "y":1310
                 }, 
                 {
                  "height":0,
