@@ -25,9 +25,6 @@ class LevelTwo extends Phaser.Scene {
     }
 
     create() {
-<<<<<<< HEAD:CMPM-120-Game4/src/Scenes/LevelTwo.js
-        this.map2 = this.add.tilemap("level-two", 18, 18, 150, 30);
-=======
         this.map = this.add.tilemap("level-two", 18, 18, 150, 30);
 
         // BACKGROUND
@@ -454,6 +451,5 @@ class LevelTwo extends Phaser.Scene {
         }
         
         this.cameras.main.shake(270, 0.02);
->>>>>>> main:src/Scenes/LevelTwo.js
     }
 }
