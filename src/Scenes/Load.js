@@ -13,6 +13,7 @@ class Load extends Phaser.Scene {
          **** **** **** **** **** **** */
         this.load.image("menuBackground", "tralaleo.jpg");
         this.load.image("levelSelectorBackground", "cocodrilo.png")
+        this.load.image("creditsBackground", "asesino.jpg");
         this.load.audio("menu music", "myFreedom.mp3");
         /* END LOAD MAIN MENU ASSETS */
 
