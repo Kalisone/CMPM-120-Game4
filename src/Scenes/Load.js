@@ -13,6 +13,7 @@ class Load extends Phaser.Scene {
          **** **** **** **** **** **** */
         this.load.image("menuBackground", "tralaleo.jpg");
         this.load.image("levelSelectorBackground", "cocodrilo.png")
+        this.load.image("creditsBackground", "asesino.jpg");
         this.load.audio("menu music", "myFreedom.mp3");
         /* END LOAD MAIN MENU ASSETS */
 
@@ -131,6 +132,18 @@ class Load extends Phaser.Scene {
                 { frame: "playerRed_walk1.png" },
                 { frame: "playerRed_walk2.png" },
                 { frame: "playerRed_walk3.png" }
+            ],
+            frameRate: 30
+        });
+
+        this.anims.create({
+            key: 'ewalk',
+            defaultTextureKey: "abstract_enemies",
+            frames: [
+                { frame: "enemyWalking_1.png" },
+                { frame: "enemyWalking_2.png" },
+                { frame: "enemyWalking_3.png" },
+                { frame: "enemyWalking_4.png" },
             ],
             frameRate: 30
         });

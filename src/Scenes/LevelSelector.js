@@ -55,7 +55,12 @@ class LevelSelector extends Phaser.Scene {
 
         if(levelComplete[0] === 1) {
             this.level1.setStyle({ backgroundColor: '#00ff00' });
-            this.level1.disableInteractive();
+        }
+        if(levelComplete[1] === 1) {
+            this.level2.setStyle({ backgroundColor: '#00ff00' });
+        }
+        if(levelComplete[2] === 1) {
+            this.level3.setStyle({ backgroundColor: '#00ff00' });
         }
     }
 }
