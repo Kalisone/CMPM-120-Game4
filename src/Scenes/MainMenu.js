@@ -44,7 +44,7 @@ class MainMenu extends Phaser.Scene {
             this.scene.start("creditsScene");
         });
 
-        document.getElementById("description").innerHTML = "<h2>Tralaleo Trip</h2>-----<br>CONTROLS<br>-----<br>[ARROWS] - Movement.<br>[D] - Toggle debug controls:<br>&emsp;[9] - Decrement keys remaining.<br>&emsp;[0] - Increment keys remaining.<br>&emsp;[MINUS] - Decrement lives.<br>&emsp;[PLUS] - Increment lives.<br><br>-----<br>HOW TO PLAY<br>-----<br>Collect all the keys in each level to unlock the door. Enter the door to complete the level.";
+        document.getElementById("description").innerHTML = "<h2>Tralaleo Trip</h2>-----<br>CONTROLS<br>-----<br>[ARROWS] - Movement.<br>[P] - Pause.<br>[D] - Toggle debug controls:<br>&emsp;[9] - Decrement keys remaining.<br>&emsp;[0] - Increment keys remaining.<br>&emsp;[MINUS] - Decrement lives.<br>&emsp;[PLUS] - Increment lives.<br><br>-----<br>HOW TO PLAY<br>-----<br>Collect all the keys in each level to unlock the door. Enter the door to complete the level.";
     }
 
 
