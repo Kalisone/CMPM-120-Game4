@@ -448,7 +448,7 @@ class LevelThree extends Phaser.Scene {
             let belowPt = b.y > a.y - (a.displayHeight/2);
 
             if (beforePt && afterPt && abovePt && belowPt){
-                levelComplete[1] = 1;
+                levelComplete[2] = 1;
                 this.scene.start("gameEnd");
             }
         }
