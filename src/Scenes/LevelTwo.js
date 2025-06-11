@@ -508,8 +508,4 @@ class LevelTwo extends Phaser.Scene {
         
         this.cameras.main.shake(270, 0.02);
     }
-
-    enemyMovement() {
-        my.sprite.player.setAccelerationX(this.ACCELERATION);
-    }
 }
