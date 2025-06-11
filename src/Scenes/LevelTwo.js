@@ -14,7 +14,7 @@ class LevelTwo extends Phaser.Scene {
         this.SCALE = SCALE;
         this.physics.world.TILE_BIAS = 36;
 
-        this.DEFAULT_LIVES = 300;
+        this.DEFAULT_LIVES = 3;
         this.wasInAir = this.inAir = false;
         this.numKeys = 0;
         this.stepCounter = 0;
@@ -322,6 +322,7 @@ class LevelTwo extends Phaser.Scene {
     update(){
         this.stepCounter++;
 
+        // Brief invulnerability post-death to avoid double-death bug
         if(!my.sprite.player.vulnerable){
             this.time.addEvent({
                 delay: 30,

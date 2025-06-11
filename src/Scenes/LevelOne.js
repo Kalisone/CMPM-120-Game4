@@ -89,6 +89,7 @@ class LevelOne extends Phaser.Scene {
         my.sprite.player.setCollideWorldBounds(true, 1);
         my.sprite.player.body.maxVelocity.x = this.MAX_SPEED;
         my.sprite.player.lives = this.DEFAULT_LIVES;
+        my.sprite.player.vulnerable = true;
 
         // Controls
         cursors = this.input.keyboard.createCursorKeys();
@@ -100,7 +101,8 @@ class LevelOne extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         
         let hazCollider = (obj1, obj2) => {
-            if(obj2.properties.hazard){
+            if(obj2.properties.hazard && obj1.vulnerable){
+                obj1.vulnerable = false;
                 if(obj1.lives > 0){
                     this.respawn(obj1);
                 }
@@ -308,6 +310,16 @@ class LevelOne extends Phaser.Scene {
 
     update(){
         this.stepCounter++;
+
+        // Brief invulnerability post-death to avoid double-death bug
+        if(!my.sprite.player.vulnerable){
+            this.time.addEvent({
+                delay: 30,
+                callback: () => {
+                    my.sprite.player.vulnerable = true;
+                }
+            });
+        }
 
         /* **** **** **** **** **** ****
          * PLAYER MOVEMENT
