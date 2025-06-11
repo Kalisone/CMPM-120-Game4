@@ -33,7 +33,7 @@ class GameEnd extends Phaser.Scene{
         });
         
         this.time.addEvent({
-            delay: 720,
+            delay: 1080,
             callback: () => {
                 my.text.replay.setVisible(!my.text.replay.visible);
             },
