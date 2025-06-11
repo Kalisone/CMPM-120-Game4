@@ -119,6 +119,7 @@ class Load extends Phaser.Scene {
             ]
         });
 
+        /* anims by variable */
         my.vfx.keyAnim = this.anims.create({
             key: "keyAnim",
             frames: [
