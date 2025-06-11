@@ -919,7 +919,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="Objects-3">
-  <object id="1" name="spawn" x="191.716" y="185.74">
+  <object id="1" name="spawn" x="192" y="160">
    <point/>
   </object>
   <object id="2" name="exit" x="5480.25" y="1838.23">

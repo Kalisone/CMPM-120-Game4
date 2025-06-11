@@ -17,47 +17,6 @@ class Load extends Phaser.Scene {
         this.load.audio("menu music", "myFreedom.mp3");
         /* END LOAD MAIN MENU ASSETS */
 
-        /*
-         *
-         * LOAD TESTING LEVEL BITRYSIDE
-         * !!! WILL BE REMOVED JUNE 8 !!!
-         *
-        **/
-
-        /* **** **** **** **** **** ****
-         * LOAD TILES
-         **** **** **** **** **** **** */
-        // Load characters spritesheet
-        this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
-
-        // Load tilemap information
-        this.load.image("base_tilemap_tiles", "pixPlatform_tilemap_packed.png");
-        this.load.image("ind_tilemap_tiles", "pixPlatform-industrial_tilemap_packed.png");
-
-        this.load.tilemapTiledJSON("level-bitryside", "gearbit-level-2.tmj");
-
-        // Load the tilemap as a spritesheet
-        this.load.spritesheet("base_tilemap_sheet", "pixPlatform_tilemap_packed.png", {
-            frameWidth: 18,
-            frameHeight: 18
-        });
-
-        this.load.spritesheet("ind_tilemap_sheet", "pixPlatform-industrial_tilemap_packed.png", {
-            frameWidth: 18,
-            frameHeight: 18
-        });
-
-        // Load background tilemap
-        this.load.image("green_background", "gearbit-level-2-background.png");
-        this.load.image("star_background", "2D_starfield_1.png");
-        /* END LOAD TILES *
-        
-        /*
-         *
-         * END LOAD TESTING LEVEL
-         * 
-        **/
-
         /* **** **** **** **** **** ****
          * LOAD TILES
          **** **** **** **** **** **** */
@@ -77,6 +36,7 @@ class Load extends Phaser.Scene {
             frameHeight: 64
         });
         // Load background tilemap
+        this.load.image("star_background", "2D_starfield_1.png");
         /* END LOAD TILES */
 
         /* **** **** **** **** **** ****
@@ -120,12 +80,6 @@ class Load extends Phaser.Scene {
          * CREATE VFX
          **** **** **** **** **** **** */
         /* Anims, unassigned */
-        /*
-         *
-         * CREATE TESTING LEVEL
-         * !!! WILL BE REMOVED JUNE 8 !!!
-         * 
-        **/
         this.anims.create({
             key: 'walk',
             defaultTextureKey: "abstract_players",
@@ -164,11 +118,6 @@ class Load extends Phaser.Scene {
                 { frame: "playerRed_up1.png" }
             ]
         });
-        /*
-         *
-         * END CREATE TESTING LEVEL
-         * 
-        **/
 
         my.vfx.keyAnim = this.anims.create({
             key: "keyAnim",
