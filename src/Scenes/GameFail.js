@@ -31,7 +31,9 @@ class GameFail extends Phaser.Scene{
         this.cameras.main.shake(360, 0.1);
 
         this.input.keyboard.on('keydown', () => {
-            this.scene.start("mainMenuScene");
+            if(this.replayCounter < 0){
+                this.scene.start("levelSelectorScene");
+            }
         });
         
         this.time.addEvent({
