@@ -91,7 +91,25 @@ class LevelThree extends Phaser.Scene {
 
         /* **** **** **** **** **** ****
          * ENEMY SETUP
-         **** **** **** **** **** **** *//*
+         **** **** **** **** **** **** */
+        // Find all espawn points
+this.espawnPts = this.map.filterObjects("Objects-3", obj => obj.name === "espawn");
+
+// Create group of enemies
+my.sprite.enemies = this.physics.add.group();
+
+for (let pt of this.espawnPts) {
+    let enemy = this.physics.add.sprite(pt.x, pt.y, "abstract_enemies", "enemyWalking_1.png");
+    enemy.setCollideWorldBounds(true);
+    enemy.setVelocityX(100);   // Start moving right
+    enemy.direction = 1;
+    enemy.setBounceX(0);
+    
+    this.physics.add.collider(enemy, this.layerGround_1);
+
+    my.sprite.enemies.add(enemy);
+}
+/*
         this.espawnPt = this.map.findObject("Objects-3", obj => obj.name === "espawn");
         my.sprite.enemy = this.physics.add.sprite(this.espawnPt.x, this.espawnPt.y, "abstract_enemies", "enemyWalking_1.png");
         my.sprite.enemy.setCollideWorldBounds(true);
@@ -135,6 +153,9 @@ class LevelThree extends Phaser.Scene {
 
         // Enemy Collision
         this.physics.add.overlap(my.sprite.player, my.sprite.enemy, (player, enemy) => {
+            this.respawn(player);
+        });
+        this.physics.add.overlap(my.sprite.player, my.sprite.enemies, (player, enemy) => {
             this.respawn(player);
         });
         /* END COLLISION */
@@ -336,16 +357,23 @@ class LevelThree extends Phaser.Scene {
          * ENEMY MOVEMENT
          **** **** **** **** **** **** */
         // Enemy movement and flip logic
-        /*
-        let enemy = my.sprite.enemy;
-        enemy.anims.play('ewalk', true);
+        
+my.sprite.enemies.children.iterate(enemy => {
+    if (!enemy.body) return;
 
-        // Check if the enemy hit a wall
-        if (enemy.body.blocked.left || enemy.body.blocked.right) {
-            enemy.direction *= -1; // Reverse direction
-            enemy.setVelocityX(enemy.direction * 100); // Adjust speed
-            enemy.setFlipX(enemy.direction < 0); // Flip sprite
-        }
+    enemy.anims.play('ewalk', true);
+
+    // Always move based on current direction
+    enemy.setVelocityX(enemy.direction * 100);
+
+    // Flip direction on collision
+    if (enemy.body.blocked.left || enemy.body.blocked.right) {
+        enemy.direction *= -1;
+        enemy.setFlipX(enemy.direction < 0);
+    }
+});
+
+
 
         /* END PLAYER MOVEMENT */
         /* **** **** **** **** **** ****
