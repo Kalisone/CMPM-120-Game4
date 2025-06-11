@@ -1,7 +1,8 @@
-class LevelThree extends Phaser.Scene {
+class LevelOne extends Phaser.Scene {
     constructor() {
-        super("levelThree");
+        super("levelOne");
     }
+    // example to delete
 
     init() {
         // variables and settings
@@ -24,12 +25,18 @@ class LevelThree extends Phaser.Scene {
         this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
     }
 
-    create() {
-        this.map = this.add.tilemap("level-three", 18, 18, 150, 30);
+    create(){
+        // //// //// //// //// //// ////
+        //
+        // DESIGN
+        //
+        // //// //// //// //// //// ////
+
+        this.map = this.add.tilemap("level-one", 18, 18, 150, 30);
 
         // BACKGROUND
         this.backgroundImg = this.add.image(-1000, -1000, "star_background");
-        this.background = this.add.tileSprite(0, 0, this.map.widthInPixels, this.map.heightInPixels, "star_background").setScrollFactor(0.4).setScale(2.0);
+        this.background = this.add.tileSprite(0, 0, this.map.widthInPixels, this.map.heightInPixels, "star_background").setScale(1).setScrollFactor(0.2);
 
         /* **** **** **** **** **** ****
          * CREATE TILES
@@ -51,14 +58,12 @@ class LevelThree extends Phaser.Scene {
         this.layerGround_1.setCollisionByProperty({
             collides: true
         });
-
-        this.layerEnvrBack_0.setScrollFactor(0.8);
         
         // Object Layer
         this.keys = this.map.createFromObjects("Objects-3", {
             name: "key",
             key: "tilemap_sheet",
-            frame: 79
+            frame: 101
         });
 
         this.physics.world.enable(this.keys, Phaser.Physics.Arcade.STATIC_BODY);
@@ -78,46 +83,19 @@ class LevelThree extends Phaser.Scene {
          * PLAYER SETUP
          **** **** **** **** **** **** */
         this.spawnPt = this.map.findObject("Objects-3", obj => obj.name === "spawn");
-        my.sprite.player = this.physics.add.sprite(this.spawnPt.x, this.spawnPt.y, "abstract_players", "playerRed_stand.png");
+        my.sprite.player = this.physics.add.sprite(this.spawnPt.x, this.spawnPt.y, "platformer_characters", "tile_0002.png");
 
         my.sprite.player.setCollideWorldBounds(true, 1);
+        //my.sprite.player.setScale(1);
         my.sprite.player.body.maxVelocity.x = this.MAX_SPEED;
+        my.sprite.player.body.setOffset(my.sprite.player.displayWidth/3, my.sprite.player.displayHeight);
+
         my.sprite.player.lives = this.DEFAULT_LIVES;
-        my.sprite.player.vulnerable = true;
+        console.log(my.sprite.player);
 
         // Controls
         cursors = this.input.keyboard.createCursorKeys();
         /* END PLAYER SETUP */
-
-        /* **** **** **** **** **** ****
-         * ENEMY SETUP
-         **** **** **** **** **** **** */
-        // Find all espawn points
-this.espawnPts = this.map.filterObjects("Objects-3", obj => obj.name === "espawn");
-
-// Create group of enemies
-my.sprite.enemies = this.physics.add.group();
-
-for (let pt of this.espawnPts) {
-    let enemy = this.physics.add.sprite(pt.x, pt.y, "abstract_enemies", "enemyWalking_1.png");
-    enemy.setCollideWorldBounds(true);
-    enemy.setVelocityX(100);   // Start moving right
-    enemy.direction = 1;
-    enemy.setBounceX(0);
-    
-    this.physics.add.collider(enemy, this.layerGround_1);
-
-    my.sprite.enemies.add(enemy);
-}
-/*
-        this.espawnPt = this.map.findObject("Objects-3", obj => obj.name === "espawn");
-        my.sprite.enemy = this.physics.add.sprite(this.espawnPt.x, this.espawnPt.y, "abstract_enemies", "enemyWalking_1.png");
-        my.sprite.enemy.setCollideWorldBounds(true);
-        this.physics.add.collider(my.sprite.enemy, this.layerGround_1);
-        my.sprite.enemy.setVelocityX(100); // Initial speed to the right
-        my.sprite.enemy.direction = 1;     // 1 for right, -1 for left
-        my.sprite.enemy.setBounceX(0);     // No bounce on horizontal collisions
-        /* END ENEMY SETUP */
 
         /* **** **** **** **** **** ****
          * COLLISION
@@ -125,8 +103,7 @@ for (let pt of this.espawnPts) {
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         
         let hazCollider = (obj1, obj2) => {
-            if(obj2.properties.hazard && obj1.vulnerable){
-                obj1.vulnerable = false;
+            if(obj2.properties.hazard){
                 if(obj1.lives > 0){
                     this.respawn(obj1);
                 }
@@ -150,14 +127,6 @@ for (let pt of this.espawnPts) {
         this.physics.add.overlap(my.sprite.player, this.keyGroup, (obj1, obj2) => {
             this.collectObj(obj1, obj2);
         });
-
-        // Enemy Collision
-        this.physics.add.overlap(my.sprite.player, my.sprite.enemy, (player, enemy) => {
-            this.respawn(player);
-        });
-        this.physics.add.overlap(my.sprite.player, my.sprite.enemies, (player, enemy) => {
-            this.respawn(player);
-        });
         /* END COLLISION */
 
         /* **** **** **** **** **** ****
@@ -178,7 +147,7 @@ for (let pt of this.espawnPts) {
          **** **** **** **** **** **** */
         my.text.lives = this.add.text(40, 20, "Lives Remaining: " + my.sprite.player.lives, {
             fontFamily: "'Passion One'",
-            fontSize: '24px',
+            fontSize: '16px',
             color: "#ffffff",
             stroke: "#0086ff",
             strokeThickness: 2
@@ -186,7 +155,7 @@ for (let pt of this.espawnPts) {
 
         my.text.keys = this.add.text(40, 60, "Keys Remaining: " + this.numKeys, {
             fontFamily: "'Passion One'",
-            fontSize: '24px',
+            fontSize: '16px',
             color: "#ffffff",
             stroke: "#0086ff",
             strokeThickness: 2
@@ -201,7 +170,7 @@ for (let pt of this.espawnPts) {
         /* Particles */
         my.vfx.particleKey = this.add.particles(0, 0, "kenny-particles", {
             anim: "keyAnim",
-            scale: {start: 0.1, end: 0.4},
+            scale: {start: 0.03, end: 0.2},
             frequency: my.vfx.keyAnim.msPerFrame,
             lifespan: my.vfx.keyAnim.duration,
             alpha: {start: 0.4, end: 0.1},
@@ -211,7 +180,7 @@ for (let pt of this.espawnPts) {
         my.vfx.walking = this.add.particles(0, 0, "kenny-particles", {
             frame: ["smoke_03.png", "smoke_09.png"],
             random: true,
-            scale: {start: 0.05, end: 0.1},
+            scale: {start: 0.02, end: 0.04},
             maxAliveParticles: 8,
             lifespan: 150,
             gravityY: -400,
@@ -220,7 +189,7 @@ for (let pt of this.espawnPts) {
 
         my.vfx.landing = this.add.particles(0, 0, "kenny-particles", {
             anim: "landingAnim",
-            scale: {start: 0.05, end: 0.2},
+            scale: {start: 0.04, end: 0.1},
             frequency: my.vfx.landingAnim.msPerFrame,
             lifespan: my.vfx.landingAnim.duration,
             gravityY: -200
@@ -265,6 +234,7 @@ for (let pt of this.espawnPts) {
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.cameras.main.startFollow(my.sprite.player, true, 0.1, 0.1);
         this.cameras.main.setDeadzone(20, 20);
+        //this.cameras.main.setZoom(SCALE);
         this.cameras.main.setBackgroundColor("#7ff0a5");
 
         for(let k in my.text){
@@ -276,8 +246,7 @@ for (let pt of this.espawnPts) {
             this.background,
             this.backgroundImg,
             this.keys,
-            this.waterTiles.animParticles,
-            this.physics.world.debugGraphic
+            this.waterTiles.animParticles
         ]);
         
         for(let k in my.sprite){
@@ -305,77 +274,40 @@ for (let pt of this.espawnPts) {
         /* **** **** **** **** **** ****
          * DEBUG
          **** **** **** **** **** **** */
-        this.input.keyboard.on('keydown-D', () => {
-            this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true
-            this.physics.world.debugGraphic.clear()
-        }, this);
         this.physics.world.drawDebug = false;
 
         // Decrement Life
         this.input.keyboard.on('keydown-MINUS', () => {
-            if(this.physics.world.drawDebug){
-                this.respawn(my.sprite.player, true);
-            }
+            this.respawn(my.sprite.player, true);
         });
 
         // Increment Life
         this.input.keyboard.on('keydown-PLUS', () => {
-            if(this.physics.world.drawDebug){
-                my.text.lives.setText("Lives Remaining: " + ++my.sprite.player.lives);
-            }
+            my.text.lives.setText("Lives Remaining: " + ++my.sprite.player.lives);
         });
 
         // Decrement Keys Remaining
         this.input.keyboard.on('keydown-NINE', () => {
-            if(this.physics.world.drawDebug){
-                my.text.keys.setText("Keys Remaining: " + --this.numKeys);
-            }
+            my.text.keys.setText("Keys Remaining: " + --this.numKeys);
         });
 
         // Increment Keys Remaining
         this.input.keyboard.on('keydown-ZERO', () => {
-            if(this.physics.world.drawDebug){
-                my.text.keys.setText("Keys Remaining: " + ++this.numKeys);
+            my.text.keys.setText("Keys Remaining: " + ++this.numKeys);
+        });
+
+        /*
+        this.input.keyboard.on('keydown-SPACE', () => {
+            for(let sound of my.sfx.unlock){
+                sound.play();
             }
         });
+        */
+        /* END DEBUG */
     }
 
     update(){
-        this.stepCounter++;
-
-        // Brief invulnerability post-death to avoid double-death bug
-        if(!my.sprite.player.vulnerable){
-            this.time.addEvent({
-                delay: 30,
-                callback: () => {
-                    my.sprite.player.vulnerable = true;
-                }
-            });
-        }
-
-        /* **** **** **** **** **** ****
-         * ENEMY MOVEMENT
-         **** **** **** **** **** **** */
-        // Enemy movement and flip logic
-        
-my.sprite.enemies.children.iterate(enemy => {
-    if (!enemy.body) return;
-
-    enemy.anims.play('ewalk', true);
-
-    // Always move based on current direction
-    enemy.setVelocityX(enemy.direction * 100);
-
-    // Flip direction on collision
-    if (enemy.body.blocked.left || enemy.body.blocked.right) {
-        enemy.direction *= -1;
-        enemy.setFlipX(enemy.direction < 0);
-    }
-});
-
-
-
-        /* END PLAYER MOVEMENT */
+    this.stepCounter++;
         /* **** **** **** **** **** ****
          * PLAYER MOVEMENT
          **** **** **** **** **** **** */
@@ -385,10 +317,11 @@ my.sprite.enemies.children.iterate(enemy => {
             my.sprite.player.setAccelerationX(-this.ACCELERATION);
             my.sprite.player.setFlip(true, false);
             my.sprite.player.anims.play('walk', true);
-
+            // TODO: add particle following code here
             my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/4, my.sprite.player.displayHeight/2, false);
             my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
 
+            // Only play smoke effect if touching the ground
             if (my.sprite.player.body.blocked.down) {
                 this.fxPlayerWalk();
             }
@@ -396,13 +329,14 @@ my.sprite.enemies.children.iterate(enemy => {
 
         // [->] RIGHT
         if(cursors.right.isDown && !cursors.left.isDown) {
-
             my.sprite.player.setAccelerationX(this.ACCELERATION);
-            my.sprite.player.resetFlip();my.sprite.player.anims.play('walk', true);
-            
+            my.sprite.player.resetFlip();
+            my.sprite.player.anims.play('walk', true);
+            // TODO: add particle following code here
             my.vfx.walking.startFollow(my.sprite.player, -my.sprite.player.displayWidth/4, my.sprite.player.displayHeight/2, false);
             my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
 
+            // Only play smoke effect if touching the ground
             if (my.sprite.player.body.blocked.down) {
                 this.fxPlayerWalk();
             }
@@ -414,11 +348,8 @@ my.sprite.enemies.children.iterate(enemy => {
             // Set acceleration to 0 and have DRAG take over
             my.sprite.player.setAccelerationX(0);
             my.sprite.player.setDragX(this.DRAG);
-            
-            if(my.sprite.player.body.blocked.down){
-                my.sprite.player.anims.play('idle');
-            }
-            
+            my.sprite.player.anims.play('idle');
+            // TODO: have the vfx stop playing
             my.vfx.walking.stop();
         }
 
@@ -426,11 +357,19 @@ my.sprite.enemies.children.iterate(enemy => {
         if(!my.sprite.player.body.blocked.down) {
             my.sprite.player.anims.play('jump');
             my.vfx.walking.stop();
+
+            this.wasInAir = this.inAir;
+            this.inAir = true;
+        }else{
+            this.wasInAir = this.inAir;
+            this.inAir = false;
         }
 
         // [^] JUMPING
         if(my.sprite.player.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             my.sprite.player.body.setVelocityY(this.JUMP_VELOCITY);
+
+            my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight / 2));
 
             for(let sound of my.sfx.jump){
                 sound.play();
@@ -438,14 +377,8 @@ my.sprite.enemies.children.iterate(enemy => {
         }
 
         // [^] LANDING
-        if(my.sprite.player.body.velocity.y > 400){
-            my.sprite.player.fallForce = true;
-        }
-
-        if(my.sprite.player.fallForce && my.sprite.player.body.blocked.down){
-            my.sprite.player.fallForce = false;
-
-            my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight * 0.8));
+        if(this.inAir === false && this.wasInAir === true){
+            my.vfx.landing.emitParticleAt(my.sprite.player.x, my.sprite.player.y + (my.sprite.player.displayHeight));
 
             for(let sound of my.sfx.landing){
                 sound.play();
@@ -476,7 +409,6 @@ my.sprite.enemies.children.iterate(enemy => {
             let belowPt = b.y > a.y - (a.displayHeight/2);
 
             if (beforePt && afterPt && abovePt && belowPt){
-                levelComplete[2] = 1;
                 this.scene.start("gameEnd");
             }
         }
@@ -521,14 +453,15 @@ my.sprite.enemies.children.iterate(enemy => {
     }
 
     respawn(player, debug){
-        if(player === my.sprite.player){
-            my.text.lives.setText("Lives Remaining: " + --player.lives);
-        }
+        player.lives--;
         
+        if(player === my.sprite.player){
+            my.text.lives.setText("Lives Remaining: " + my.sprite.player.lives);
+        }
+
         if(!debug){
             player.x = this.spawnPt.x;
             player.y = this.spawnPt.y;
-            player.body.setVelocity(0, 0);
 
             for(let sound of my.sfx.death){
                 sound.play();
