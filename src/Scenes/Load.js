@@ -4,6 +4,13 @@ class Load extends Phaser.Scene {
     }
 
     preload() {
+        // Include S02 contributions here
+        console.log("Ethan Morelos, etmorelo");
+        console.log("Jello was here");
+        console.log("Edward Garcia contributed on the whole project");
+        console.log("Ian Bunsirisert was here.");
+        // End of S02 contributions
+        
         this.load.scenePlugin("AnimatedTiles", "./lib/AnimatedTiles.js", "animatedTiles", "animatedTiles");
 
         this.load.setPath("./assets/");
